@@ -16,14 +16,14 @@ DATABASE:
 - Configure your YouTube API key, Database host : 'localhost', username, password, database : 'youtube_trends'
 
 SAMPLE REGION CODES:
-CA = Canada
-US = United States of America
-GB = United Kingdom of Great Britain
-HK = Hong Kong
-IT = Italy
-JP =  Japan
-PH = Philippines
+- CA = Canada
+- US = United States of America
+- GB = United Kingdom of Great Britain
+- HK = Hong Kong
+- IT = Italy
+- JP =  Japan
+- PH = Philippines
 
 Before running this application, enter these on terminal in order to run:
-python -m pip install mysql-connector-python
-python -m pip install google-api-python client
+- python -m pip install mysql-connector-python
+- python -m pip install google-api-python client
