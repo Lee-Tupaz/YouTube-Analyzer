@@ -1,5 +1,5 @@
 # type your own api key
-youtube_api_key = "AIzaSyBRQgPksCiOiCmKi9Hp7emQOX35nSYIAQk"
+youtube_api_key = ""
 
 db_config = {
     'host' : 'localhost',
