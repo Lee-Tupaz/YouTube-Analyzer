@@ -18,10 +18,10 @@ def fetch_videos():
     try:
         max_results = int(max_results)
         if max_results <= 0:
-            print("Please enter a positive number")
+            print("Please enter a positive number.")
             return
     except ValueError:
-        print("Please enter a valid number")
+        print("Please enter a valid number.")
         return
     
     print(f"\nFetching {max_results} videos...")
@@ -46,9 +46,9 @@ def fetch_videos():
         inserted_count = video_model.insert_videos(trending_videos, region_code)
         
         if inserted_count > 0:
-            print(f"\nSuccessfully stored {inserted_count} videos in database")
+            print(f"\nSuccessfully stored {inserted_count} videos in database.")
         else:
-            print("\nNo videos were stored - possible database error")
+            print("\nNo videos were stored. Possible database error.")
             
     except Exception as e:
         print(f"\nAn error occurred: {e}")
@@ -62,14 +62,14 @@ def display_videos():
         videos = video_model.get_all_videos()
         
         if not videos:
-            print("\nNo videos found in database")
+            print("\nNo videos found in database.")
             return
             
         print(f"\nFound {len(videos)} videos in database:")
         print("-" * 70)
         
         for i, video in enumerate(videos, 1):
-            print(f"\nVideo {i} (Region: {video['region_code']}):")
+            print(f"\nVideo {i} (Displaying trending videos in region: {video['region_code']}):")
             print_video_info(video)
             print("-" * 70)
             

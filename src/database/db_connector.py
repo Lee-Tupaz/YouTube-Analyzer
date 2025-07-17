@@ -21,11 +21,10 @@ class DatabaseConnector:
     def disconnect(self):
         if self.connection and self.connection.is_connected():
             self.connection.close()
-            print("MySQL connection closed.")
 
     def execute_query(self, query, params=None, fetch=False):
         cursor = None
-        
+
         try:
             cursor = self.connection.cursor(dictionary=True, buffered=True)
             cursor.execute(query, params or ())
