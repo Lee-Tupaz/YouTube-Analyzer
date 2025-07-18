@@ -1,4 +1,4 @@
-# YouTube-Analyzer
+# YouTube-Analyzer (Console Application)
 Discover trending YouTube videos based on region.
 
 API:
