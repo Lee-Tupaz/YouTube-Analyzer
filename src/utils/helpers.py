@@ -29,7 +29,7 @@ def print_video_info(video):
     
     print(f"Title: {video['title']}")
     print(f"Channel: {video['channel_title']}")
-    print(f"Published: {published_at}")
+    print(f"Published: {video['display_published_at']}")
     print(f"Views: {video['view_count']:,}")
     print(f"Likes: {video['like_count']:,}")
     print(f"Comments: {video['comment_count']:,}")

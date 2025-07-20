@@ -97,7 +97,7 @@ class VideoModel:
             return 0
     
     def get_all_videos(self):
-        query = "SELECT * FROM trending_videos ORDER BY fetched_at DESC"
+        query = "SELECT * FROM trending_videos ORDER BY region_code, fetched_at DESC"
         result = self.db.execute_query(query, fetch=True)
         return result if result else []
     
