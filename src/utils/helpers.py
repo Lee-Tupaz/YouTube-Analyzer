@@ -22,15 +22,26 @@ def format_duration(duration):
         return f"{hours}:{minutes:02d}:{seconds:02d}"
     else:
         return f"{minutes}:{seconds:02d}"
-
-def print_video_info(video):
-    # Use the display format if available, fallback to original
-    published_at = video.get('display_published_at', video['published_at'])
     
-    print(f"Title: {video['title']}")
-    print(f"Channel: {video['channel_title']}")
-    print(f"Published: {video['display_published_at']}")
-    print(f"Views: {video['view_count']:,}")
-    print(f"Likes: {video['like_count']:,}")
-    print(f"Comments: {video['comment_count']:,}")
-    print(f"Duration: {format_duration(video['duration'])}")
+def display_video_list(videos, title=None):
+    
+    if not videos:
+        print("No videos to display")
+        return
+    
+    if title:
+        print(f"\n{title}")
+        print("-" * 70)
+    
+    for i, video in enumerate(videos, 1):
+        print(f"\nVideo {i}:")
+        print("=" * 50)
+        print(f"Title: {video['title']}")
+        print(f"Channel: {video['channel_title']}")
+        print(f"Published: {video['display_published_at']}")
+        print(f"Views: {video['view_count']:,}")
+        print(f"Likes: {video['like_count']:,}")
+        print(f"Comments: {video['comment_count']:,}")
+        print(f"Duration: {format_duration(video['duration'])}")
+        print(f"URL: {video['youtube_url']}")
+        print("=" * 50)

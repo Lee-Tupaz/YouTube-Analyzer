@@ -5,6 +5,9 @@ class YouTubeService:
     
     def __init__(self):
         self.youtube = build('youtube', 'v3', developerKey=youtube_api_key)
+
+    def get_video_url(self, video_id):
+        return f"https://www.youtube.com/watch?v={video_id}"
     
     def get_trending_videos(self, region_code, max_results):
         try:
@@ -30,7 +33,8 @@ class YouTubeService:
                     'comment_count': int(item['statistics'].get('commentCount', 0)),
                     'duration': item['contentDetails']['duration'],
                     'category_id': int(item['snippet']['categoryId']),
-                    'tags': item['snippet'].get('tags', [])
+                    'tags': item['snippet'].get('tags', []),
+                    'youtube_url' : self.get_video_url(item['id'])
                 }
                 videos.append(video_data)
             

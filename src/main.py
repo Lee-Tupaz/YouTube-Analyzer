@@ -1,6 +1,6 @@
 from services.youtube_services import YouTubeService
 from database.models import VideoModel
-from utils.helpers import format_duration, print_video_info
+from utils.helpers import format_duration, display_video_list
 
 def display_menu():
     print("\nYouTube Trend Analyzer")
@@ -49,30 +49,23 @@ def fetch_videos():
             print("No trending videos found.")
             return
         
-        print(f"\nSuccessfully fetched {len(trending_videos)} trending videos from region {region_code}")
-
+        # Convert datetimes for display
         for video in trending_videos:
             _, display_datetime = video_model._convert_datetime(video['published_at'])
             video['display_published_at'] = display_datetime or video['published_at']
         
-        for i, video in enumerate(trending_videos, 1):
-            print(f"\nVideo {i}:")
-            print("=" * 50)
-            print(f"Title: {video['title']}")
-            print(f"Channel: {video['channel_title']}")
-            print(f"Published: {video['display_published_at']}")
-            print(f"Views: {video['view_count']:,}")
-            print(f"Likes: {video['like_count']:,}")
-            print(f"Comments: {video['comment_count']:,}")
-            print(f"Duration: {format_duration(video['duration'])}")
-            print("=" * 50)
+        display_video_list(
+            trending_videos,
+            title=f"Successfully fetched {len(trending_videos)} trending videos from region {region_code}"
+        )
         
+        # Insert to database
         inserted_count = video_model.insert_videos(trending_videos, region_code)
         
         if inserted_count > 0:
-            print(f"\nSuccessfully stored {inserted_count} videos in database.")
+            print(f"\nSuccessfully stored {inserted_count} videos in database")
         else:
-            print("\nNo videos were stored. Possible database error.")
+            print("\nNo videos were stored - possible database error")
             
     except Exception as e:
         print(f"\nAn error occurred: {e}")
@@ -88,23 +81,20 @@ def display_videos():
         if not videos:
             print("\nNo videos found in database.")
             return
-            
-        print(f"\nFound {len(videos)} videos in database:")
-        print("-" * 70)
         
+        # To group by region
         videos_by_region = {}
         for video in videos:
             region = video['region_code']
             if region not in videos_by_region:
                 videos_by_region[region] = []
             videos_by_region[region].append(video)
-
+        
         for region, region_videos in videos_by_region.items():
-            print(f"\n== Videos from region: {region} ===")
-            for i, video in enumerate(region_videos, 1):
-                print(f"\nVideo {i} (Region: {region}):")
-                print_video_info(video)
-                print("-"*50)
+            display_video_list(
+                region_videos,
+                title=f"=== Videos from region: {region} ==="
+            )
             
     except Exception as e:
         print(f"\nError retrieving videos: {e}")

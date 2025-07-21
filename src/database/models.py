@@ -25,6 +25,7 @@ class VideoModel:
             category_id INT,
             tags TEXT,
             region_code VARCHAR(10) NOT NULL,
+            youtube_url TEXT,
             fetched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """
@@ -48,14 +49,15 @@ class VideoModel:
         INSERT INTO trending_videos (
         id, title, channel_title, published_at, description, 
         thumbnail_url, view_count, like_count, comment_count, 
-        duration, category_id, tags, region_code, display_published_at
-        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        duration, category_id, tags, region_code, display_published_at, youtube_url
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ON DUPLICATE KEY UPDATE
             title = VALUES(title),
             view_count = VALUES(view_count),
             like_count = VALUES(like_count),
             comment_count = VALUES(comment_count),
-            display_published_at = VALUES(display_published_at)
+            display_published_at = VALUES(display_published_at),
+            youtube_url = VALUES(youtube_url)
         """
         
         params_list = []
@@ -80,7 +82,8 @@ class VideoModel:
                 video_data.get('category_id', 0),
                 tags,
                 region_code,
-                display_datetime
+                display_datetime,
+                video_data['youtube_url']
             )
             params_list.append(params)
         
